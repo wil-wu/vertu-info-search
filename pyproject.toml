@@ -1,0 +1,28 @@
+[project]
+name = "vertu-info-search"
+version = "1.0.0"
+description = "vertu info search"
+readme = "README.md"
+requires-python = ">=3.12"
+authors = [{ name = "Vertu" }]
+dependencies = [
+    "fastapi",
+    "uvicorn",
+    "python-multipart",
+    "pydantic-settings",
+    "meilisearch>=0.40.0",
+]
+
+[dependency-groups]
+dev = [
+    "pytest",
+    "ruff",
+]
+
+[[tool.uv.index]]
+url = "https://pypi.tuna.tsinghua.edu.cn/simple"
+default = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
