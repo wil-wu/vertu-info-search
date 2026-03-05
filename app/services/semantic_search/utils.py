@@ -60,7 +60,8 @@ class SemanticRetriever:
         except Exception as e:
             logger.error(f"query parsing error: {e}")
             search_params = SearchParams(keyword=query, filter=[])
-
+        
+        logger.info(f"query: {query}")
         logger.info(f"search_params: {search_params}")
 
         return index.search(
