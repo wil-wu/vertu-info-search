@@ -9,7 +9,8 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
 from app.config import settings
-from app.scanner import RouterScanner
+from app.scanner import RouterScanner, JobScanner
+from app.core.shared import scheduler
 
 logger = logging.getLogger(__name__)
 
@@ -19,14 +20,26 @@ async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
     """应用生命周期管理"""
     # 启动时执行
     logger.info(f"Starting {settings.app_name} v{settings.app_version}")
-    # 全局对象挂载，数据库连接，httpx连接，embedding模型等
+    
+    # 扫描并加载各服务下的定时任务
+    job_scanner = JobScanner()
+    job_scanner.scan_and_load()
+
+    scheduled_jobs = scheduler.get_jobs()
+
+    if scheduled_jobs:
+        scheduler.start()
+    
     logger.info("Application startup completed")
 
     yield
 
     # 关闭时执行
     logger.info("Shutting down application")
-    # 全局对象关闭，数据库连接，httpx连接
+    
+    if scheduler.running:
+        scheduler.shutdown()
+
     logger.info("Application shutdown completed")
 
 

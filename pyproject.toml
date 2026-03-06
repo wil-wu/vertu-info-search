@@ -12,6 +12,7 @@ dependencies = [
     "pydantic-settings",
     "meilisearch>=0.40.0",
     "openai>=2.24.0",
+    "apscheduler>=3.11.2",
 ]
 
 [dependency-groups]
