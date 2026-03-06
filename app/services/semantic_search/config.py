@@ -19,5 +19,10 @@ class SemanticSearchSettings(BaseSettings):
     llm_model: str = Field(default="", description="LLM 模型")
     llm_temperature: float = Field(default=0.1, description="LLM 温度")
 
+    # 定时任务配置
+    product_info_url: str = Field(default="", description="产品信息 URL")
+    product_info_token: str = Field(default="", description="产品信息 Token")
+    product_info_crontab: str = Field(default="", description="产品信息定时任务")
+
 
 semantic_search_settings = SemanticSearchSettings()
