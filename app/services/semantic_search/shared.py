@@ -15,4 +15,5 @@ semantic_retriever = SemanticRetriever(
     llm_client=openai_async_client,
     model=semantic_search_settings.llm_model,
     system_prompt=QUERY_PARSING_PROMPT,
+    use_json_mode=semantic_search_settings.use_json_mode,
 )

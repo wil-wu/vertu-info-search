@@ -18,6 +18,7 @@ class SemanticSearchSettings(BaseSettings):
     llm_api_key: str = Field(default="", description="LLM API 密钥")
     llm_model: str = Field(default="", description="LLM 模型")
     llm_temperature: float = Field(default=0.1, description="LLM 温度")
+    use_json_mode: bool = Field(default=True, description="是否使用 JSON 模式")
 
     # 定时任务配置
     product_info_url: str = Field(default="", description="产品信息 URL")
