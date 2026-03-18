@@ -18,6 +18,9 @@ class SearchParams(BaseModel):
     filter: list[Union[str, list[str]]] = Field(
         description="精准过滤条件数组，支持 Meilisearch 语法"
     )
+    sort: list[str] = Field(
+        description="排序条件数组，支持 Meilisearch 语法"
+    )
 
 
 class SemanticRetriever:
@@ -57,7 +60,7 @@ class SemanticRetriever:
             search_params = await self._parse_query(query)
         except Exception as e:
             logger.error(f"query parsing error: {e}")
-            search_params = SearchParams(keyword=query, filter=[])
+            search_params = SearchParams(keyword=query, filter=[], sort=[])
 
         logger.info(f"query: {query}")
         logger.info(f"search_params: {search_params}")
@@ -66,6 +69,7 @@ class SemanticRetriever:
             search_params.keyword,
             {
                 "filter": search_params.filter,
+                "sort": search_params.sort,
                 **kwargs,
             },
         )
